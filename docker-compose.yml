@@ -1,0 +1,23 @@
+version: "3"
+
+volumes:
+  postgres_volume:
+
+services:
+  app_server:
+    build: some_project/
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      - TZ=Europe/Moscow
+
+  postgres_db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=db_name
+      - POSTGRES_USER=db_user
+      - POSTGRES_PASSWORD=db_user_password
